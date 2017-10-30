@@ -6,8 +6,11 @@ public class Lotto {
 
     public static void main(String[] args) {
 
-        System.out.println(drawNumbers());
-        System.out.println(chooseSixNumbers());
+        List<Integer> drawList = drawNumbers();
+//        System.out.println(drawList);
+        List<Integer> chooseList = chooseSixNumbers();
+//        System.out.println(chooseList);
+        checkIfWon(drawList, chooseList);
     }
 
     /**
@@ -19,7 +22,7 @@ public class Lotto {
         Random rand = new Random();
         for (int i = 0; i < 6; i++){
             while (true) {
-                int tmp = rand.nextInt(49 + 1);
+                int tmp = rand.nextInt(49) + 1;
                 if (!listOfSix.contains(tmp)){
                     listOfSix.add(tmp);
                     break;
@@ -51,8 +54,21 @@ public class Lotto {
         return listOfSix;
     }
 
+    /**
+     * compares two lists a tells how many numbers repeat
+     */
     public static void checkIfWon(List<Integer> drawnSix, List<Integer> insertSix){
-
+        int[] tmpArr = new int[6];
+        int counter = 0;
+        for (int i = 0; i < tmpArr.length; i++){
+            tmpArr[i] = insertSix.get(i);
+        }
+        for (int i = 0; i < tmpArr.length; i++){
+            if (drawnSix.contains(tmpArr[i])){
+                counter++;
+            }
+        }
+        System.out.println("You've guessed " + counter + " numbers");
     }
 }
 
